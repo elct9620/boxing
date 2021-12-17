@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'boxing/version'
-require_relative 'boxing/dependency'
 require_relative 'boxing/package'
 require_relative 'boxing/database'
 require_relative 'boxing/command'
