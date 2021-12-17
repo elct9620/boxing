@@ -11,5 +11,7 @@ module Boxing
     def self.exit_on_failure?
       true
     end
+
+    require_relative 'commands/generate'
   end
 end

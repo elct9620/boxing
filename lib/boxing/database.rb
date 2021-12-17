@@ -13,7 +13,7 @@ module Boxing
       #
       # @since 0.1.0
       def root
-        @root ||= Pathname.new(File.basename(__FILE__)).join('../database')
+        @root ||= Pathname.new(File.dirname(__FILE__)).join('../../database')
       end
     end
 
