@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 module Boxing
+  # The dependency of project
+  #
+  # @since 0.1.0
   class Dependency
     # NOTE: Current only support to create for production
     #
     # @since 0.1.0
-    DEFAULT_GROUPS = %i[default production]
+    DEFAULT_GROUPS = %i[default production].freeze
 
     # @param dependencies [Array<Bundler::Dependency>]
     #
