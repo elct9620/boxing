@@ -22,8 +22,6 @@ module Boxing
       end
     end
 
-    include Comparable
-
     # @since 0.1.0
     RUNTIME = 0b01
 
@@ -63,8 +61,18 @@ module Boxing
     # @return [TrueClass|FalseClass]
     #
     # @since 0.1.0
-    def ==(other)
+    def eql?(other)
       @name == other.name
+    end
+    alias == eql?
+
+    # Return Object#hash
+    #
+    # @return [Number]
+    #
+    # @since 0.1.0
+    def hash
+      @name.hash
     end
 
     # Convert to string
