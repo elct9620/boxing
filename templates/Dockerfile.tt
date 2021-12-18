@@ -36,6 +36,10 @@ COPY --from=gem /${APP_ROOT}/vendor/bundle /${APP_ROOT}/vendor/bundle
 
 RUN mkdir -p ${APP_ROOT}
 
+<%- if has?('rails') -%>
+ENV RAILS_ENV=production
+ENV RAILS_LOG_TO_STDOUT=true
+<%- end -%>
 ENV APP_ROOT=$APP_ROOT
 
 COPY . ${APP_ROOT}
@@ -43,11 +47,23 @@ COPY . ${APP_ROOT}
 # Apply Execute Permission
 RUN adduser -h ${APP_ROOT} -D -s /bin/nologin ruby ruby && \
     chown ruby:ruby ${APP_ROOT} && \
+    <%- if has?('rails') -%>
+    chown -R ruby:ruby ${APP_ROOT}/log && \
+    chown -R ruby:ruby ${APP_ROOT}/tmp && \
+    <%- end -%>
     chmod -R +r ${APP_ROOT}
 
 USER ruby
 WORKDIR ${APP_ROOT}
 
-EXPOSE 3000
+EXPOSE <%= has?('rails') ? '3000' : '9292' %>
+<%- if has?('openbox') -%>
 ENTRYPOINT ["bin/openbox"]
 CMD ["server"]
+<%- elsif has?('rails') -%>
+ENTRYPOINT ["bin/rails"]
+CMD ["server", "-b", "0.0.0.0"]
+<%- else -%>
+ENTRYPOINT ["bundle", "exec"]
+CMD ["rackup", "-o", "0.0.0.0"]
+<%- end -%>
