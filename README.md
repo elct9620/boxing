@@ -1,28 +1,48 @@
 # Boxing
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/boxing`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+The zero-configuration Dockerfile generator for Ruby.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile development group:
 
 ```ruby
-gem 'boxing'
+group :development do
+  gem 'boxing'
+end
 ```
 
 And then execute:
 
     $ bundle install
 
-Or install it yourself as:
-
-    $ gem install boxing
-
 ## Usage
 
-TODO: Write usage instructions here
+### Generate
+
+To generate `Dockerfile` for current project
+
+```ruby
+bundle exec boxing generate
+```
+
+## Roadmap
+
+* [x] `Dockerfile` generator
+* [ ] Customize config file `config/boxing.rb`
+* [ ] Entrypoint Detection
+  * [x] Openbox (Suggested)
+  * [x] Ruby on Rails
+  * [ ] Rack
+  * [ ] Ruby
+* [ ] Package Database
+  * [x] Built-in (Move to standalone repoistory in future)
+  * [ ] Standalone Repoistory
+  * [ ] Customize Source
+  * [ ] Base Image
+    * [x] Alpine
+    * [ ] Ubuntu
+  * [ ] Ruby Version
 
 ## Development
 
@@ -32,8 +52,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/boxing. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/boxing/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/elct9620/boxing. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/elct9620/boxing/blob/main/CODE_OF_CONDUCT.md).
 
 ## Code of Conduct
 
-Everyone interacting in the Boxing project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/boxing/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Boxing project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/elct9620/boxing/blob/main/CODE_OF_CONDUCT.md).
