@@ -4,6 +4,7 @@ require 'pathname'
 require 'set'
 
 module Boxing
+  # :nodoc:
   module Commands
     # The Dockerfle Generator
     #
@@ -20,31 +21,16 @@ module Boxing
       #
       # @since 0.1.0
       def execute
-        template('templates/Dockerfile.tt', 'Dockerfile')
+        template('templates/Dockerfile.tt', 'Dockerfile', context: context.to_binding)
       end
 
       private
 
-      # Return loaded packages
-      #
-      # @return [Set<Boxing::Package>] packages
-      #
-      # @since 0.1.0
-      def packages
-        @packages ||=
-          Set.new(
-            Boxing
-          .dependencies
-          .map(&:name)
-          .flat_map { |name| database.package_for(name).to_a }
-          )
-      end
-
-      # @return [Boxing::Database]
-      #
-      # @since 0.1.0
-      def database
-        @database ||= Database.new
+      def context
+        @context = Context.new(
+          Database.new,
+          Boxing.dependencies
+        )
       end
     end
 
