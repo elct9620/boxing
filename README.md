@@ -69,6 +69,9 @@ bundle exec boxing generate
 ## Roadmap
 
 * [x] `Dockerfile` generator
+* [ ] `.gitignore` generator
+  * [x] Common ignore files
+  * [ ] Customizable ignore files
 * [ ] Customize config file `config/boxing.rb`
 * [ ] Entrypoint Detection
   * [x] Openbox (Suggested)
