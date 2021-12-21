@@ -29,6 +29,9 @@ ARG APP_ROOT
 <%- if packages.select(&:runtime?).any? -%>
 RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %>
 
+ARG REVISION
+ENV REVISION $REVISION
+
 <%- end -%>
 COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
 COPY --from=gem /usr/local/bundle /usr/local/bundle
@@ -43,6 +46,7 @@ ENV RAILS_LOG_TO_STDOUT=true
 ENV APP_ROOT=$APP_ROOT
 
 COPY . ${APP_ROOT}
+RUN echo $REVISION > ${SERVER_ROOT}/REVISION
 
 # Apply Execute Permission
 RUN adduser -h ${APP_ROOT} -D -s /bin/nologin ruby ruby && \
