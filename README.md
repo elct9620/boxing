@@ -16,6 +16,46 @@ And then execute:
 
     $ bundle install
 
+## Features
+
+### Automatic Package Finder
+
+This gem will read `Gemfile` and find any "knows" gem in the dependency database and put the necessary package as a dependency for build and runtime.
+
+That means you never need to know the actual package and don't need to write your Dockerfile by hand.
+
+### Optimized Size
+
+By the default, the base image is depend on `ruby:[VERSION]-alpine` which is minimal size for Ruby in most cases.
+
+To let your image as small as possible, this gem uses multi-stage and strip useless artifacts while the c-extension compiling.
+
+The final Rails image will be around 100MB and can be flexible to delivery to any environment.
+
+> We suggest using `puma` as the webserver to avoid the extra dependency to keep the image small.
+
+### Revision
+
+To identity your image version, the default build argument `REVISION` will be configured by default.
+
+You can add extra options when you are building images in your CI.
+
+```yaml
+# GitLab CI example
+docker:rails:
+  extends: .docker
+  stage: package
+  script:
+    - docker build
+      --cache-from $RAILS_IMAGE:latest
+      --build-arg REVISION=${CI_COMMIT_SHORT_SHA}
+      --build-arg BUILDKIT_INLINE_CACHE=1
+      --tag $RAILS_IMAGE:$CI_COMMIT_REF_SLUG
+      --tag $RAILS_IMAGE:latest .
+```
+
+It will helpful for Sentry to detect the released version or use `<%= ENV['REVISION'] %>` to help you identify the current version.
+
 ## Usage
 
 ### Generate
