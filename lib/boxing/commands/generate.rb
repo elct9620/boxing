@@ -22,6 +22,7 @@ module Boxing
       # @since 0.1.0
       def execute
         template('templates/Dockerfile.tt', 'Dockerfile', context: context.to_binding)
+        template('templates/dockerignore.tt', '.dockerignore', context: context.to_binding)
       end
 
       private

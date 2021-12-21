@@ -1,0 +1,33 @@
+# Repo
+.git/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+
+# CI/CD
+.github/
+.cache/
+coverage/
+spec/
+features/
+.gitlab-ci.yml
+.travis.yml
+
+# Lint/Test
+rspec.xml
+.overcommit.yml
+.rubocop*.yml
+
+# Ruby
+.bundle/
+.env
+.env*
+
+# Rails
+log/*
+tmp/*
+
+# Licensed
+.licensed.yml
+.licenses
