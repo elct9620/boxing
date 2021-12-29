@@ -8,8 +8,10 @@ docker-compose*.yml
 # CI/CD
 .github/
 .cache/
+.circleci/
 coverage/
 spec/
+test/
 features/
 .gitlab-ci.yml
 .travis.yml
