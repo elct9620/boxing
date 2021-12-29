@@ -13,5 +13,6 @@ module Boxing
     end
 
     require_relative 'commands/generate'
+    require_relative 'commands/update'
   end
 end
