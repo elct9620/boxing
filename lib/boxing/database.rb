@@ -78,7 +78,7 @@ module Boxing
       return unless git?
 
       Dir.chdir(@path) do
-        command = %w[git pull --quiet origin master]
+        command = %w[git pull --quiet origin main]
         raise UpdateFailed, "failed to update #{@path}" unless system(*command)
       end
 
