@@ -66,10 +66,20 @@ To generate `Dockerfile` for current project
 bundle exec boxing generate
 ```
 
+### Update
+
+To update the database for package information
+
+```ruby
+bundle exec boxing update
+```
+
+> If the generated `Dockerfile` is not satisfy, please try to update it.
+
 ## Roadmap
 
 * [x] `Dockerfile` generator
-* [ ] `.gitignore` generator
+* [x] `.gitignore` generator
   * [x] Common ignore files
   * [ ] Customizable ignore files
 * [ ] Customize config file `config/boxing.rb`
@@ -80,12 +90,13 @@ bundle exec boxing generate
   * [ ] Ruby
 * [ ] Package Database
   * [x] Built-in (Move to standalone repoistory in future)
-  * [ ] Standalone Repoistory
-  * [ ] Customize Source
+  * [x] Standalone Repoistory
+  * [x] Customize Source
   * [ ] Base Image
     * [x] Alpine
     * [ ] Ubuntu
-  * [ ] Ruby Version
+  * [ ] Filter by Ruby Version
+  * [ ] Filter by Gem Version
 
 ## Development
 
