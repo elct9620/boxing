@@ -2,6 +2,8 @@
 
 The zero-configuration Dockerfile generator for Ruby.
 
+> The [Database Repository](https://github.com/elct9620/ruby-boxing-db) will be used for package information.
+
 ## Installation
 
 Add this line to your application's Gemfile development group:
