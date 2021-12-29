@@ -9,12 +9,80 @@ module Boxing
   # @since 0.1.0
   class Database
     class << self
-      # The database root
+      # Check for the database exists
       #
-      # @since 0.1.0
-      def root
-        @root ||= Pathname.new(File.dirname(__FILE__)).join('../../database')
+      # @param [String] path
+      #
+      # @return [TrueClass\FalseClass]
+      #
+      # @since 0.3.0
+      def exist?(path = DEFAULT_PATH)
+        File.directory?(path) && !(Dir.entries(path) - %w[. ..]).empty?
       end
+
+      # Download Database
+      #
+      # @since 0.3.0
+      def download!(path = DEFAULT_PATH)
+        command = %w[git clone --quiet]
+        command << URL << path.to_s
+
+        raise DownloadFailed, "failed to download #{URL} to #{path}" unless system(*command)
+
+        new(path)
+      end
+    end
+
+    # @since 0.3.0
+    class DownloadFailed < RuntimeError; end
+
+    # @since 0.3.0
+    class UpdateFailed < RuntimeError; end
+
+    # Git URL of the ruby-boxing-db
+    #
+    # @since 0.3.0
+    URL = 'https://github.com/elct9620/ruby-boxing-db.git'
+
+    # Path to the user's copy of ruby-boxing-db
+    #
+    # @since 0.3.0
+    USER_PATH = Pathname.new(Gem.user_home).join('.local/share/ruby-boxing-db')
+
+    # @since 0.3.0
+    DEFAULT_PATH = ENV['BOXING_DB'] || USER_PATH
+
+    # @since 0.3.0
+    attr_reader :path
+
+    # Initialize Database
+    #
+    # @since 0.3.0
+    def initialize(path = DEFAULT_PATH)
+      @path = path
+    end
+
+    # The Database is Git Repoistory
+    #
+    # @return [TrueClass|FalseClass]
+    #
+    # @since 0.3.0
+    def git?
+      File.directory?(File.join(@path, '.git'))
+    end
+
+    # Update the database
+    #
+    # @since 0.3.0
+    def update!
+      return unless git?
+
+      Dir.chdir(@path) do
+        command = %w[git pull --quiet origin master]
+        raise UpdateFailed, "failed to update #{@path}" unless system(*command)
+      end
+
+      true
     end
 
     # Find packages for rubygems
@@ -41,7 +109,7 @@ module Boxing
     #
     # @since 0.1.0
     def each_package_path_for(name, &block)
-      Dir.glob(Database.root.join('gems', name, '*.yml'), &block)
+      Dir.glob(File.join(@path, 'gems', name, '*.yml'), &block)
     end
   end
 end
