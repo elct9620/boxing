@@ -47,6 +47,7 @@ module Boxing
     #
     # @since 0.4.0
     def git?
+      pp @dependencies
       @dependencies.any?(&:git)
     end
 
