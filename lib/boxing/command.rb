@@ -12,6 +12,7 @@ module Boxing
       true
     end
 
+    require_relative 'commands/base'
     require_relative 'commands/generate'
     require_relative 'commands/update'
   end

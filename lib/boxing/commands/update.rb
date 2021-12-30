@@ -6,7 +6,7 @@ module Boxing
     # The Database Updater
     #
     # @since 0.3.0
-    class Update < Thor::Group
+    class Update < Base
       # Update Database
       #
       # @since 0.3.0
