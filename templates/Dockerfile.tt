@@ -4,7 +4,7 @@ ARG RUBY_VERSION=<%= RUBY_VERSION %>
 FROM ruby:${RUBY_VERSION}-alpine AS gem
 ARG APP_ROOT
 
-RUN apk add --no-cache build-base <%= packages.select(&:build?).join(' ') %>
+RUN apk add --no-cache <%= packages.select(&:build?).join(' ') %>
 
 RUN mkdir -p ${APP_ROOT}
 COPY Gemfile Gemfile.lock ${APP_ROOT}/
@@ -29,9 +29,6 @@ ARG APP_ROOT
 <%- if packages.select(&:runtime?).any? -%>
 RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %>
 
-ARG REVISION
-ENV REVISION $REVISION
-
 <%- end -%>
 COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
 COPY --from=gem /usr/local/bundle /usr/local/bundle
@@ -46,6 +43,9 @@ ENV RAILS_LOG_TO_STDOUT=true
 ENV APP_ROOT=$APP_ROOT
 
 COPY . ${APP_ROOT}
+
+ARG REVISION
+ENV REVISION $REVISION
 RUN echo $REVISION > ${SERVER_ROOT}/REVISION
 
 # Apply Execute Permission

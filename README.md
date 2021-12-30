@@ -93,6 +93,7 @@ bundle exec boxing update
 * [ ] Package Database
   * [x] Built-in (Move to standalone repoistory in future)
   * [x] Standalone Repoistory
+  * [x] Support gems from `git` repoistory
   * [x] Customize Source
   * [ ] Base Image
     * [x] Alpine
