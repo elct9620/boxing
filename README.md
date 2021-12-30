@@ -102,11 +102,10 @@ end
     * [ ] Entrypoint
     * [ ] Command
     * [ ] Expose Port
-* [ ] Entrypoint Detection
-  * [x] Openbox (Suggested)
+* [x] Entrypoint Detection
+  * [x] [Openbox](https://github.com/elct9620/openbox) (Suggested)
   * [x] Ruby on Rails
-  * [ ] Rack
-  * [ ] Ruby
+  * [x] Rack (Default)
 * [ ] Package Database
   * [x] Built-in (Move to standalone repoistory in future)
   * [x] Standalone Repoistory
