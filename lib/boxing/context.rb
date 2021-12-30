@@ -5,11 +5,16 @@ module Boxing
   #
   # @since 0.1.0
   class Context
+    # @since 0.5.0
+    attr_reader :config
+
+    # @param config [Boxing::Config]
     # @param database [Boxing::Database]
     # @param dependencies [Array<Bundler::Dependency>]
     #
     # @since 0.1.0
-    def initialize(database, dependencies = [])
+    def initialize(config, database, dependencies = [])
+      @config = config
       @database = database
       @dependencies = dependencies
     end

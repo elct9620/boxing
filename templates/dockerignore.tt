@@ -33,3 +33,6 @@ tmp/*
 # Licensed
 .licensed.yml
 .licenses
+
+# Boxing
+config/boxing.rb

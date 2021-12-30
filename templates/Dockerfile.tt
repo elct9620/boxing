@@ -1,4 +1,4 @@
-ARG APP_ROOT=/src/app
+ARG APP_ROOT=<%= config.root %>
 ARG RUBY_VERSION=<%= RUBY_VERSION %>
 
 FROM ruby:${RUBY_VERSION}-alpine AS gem

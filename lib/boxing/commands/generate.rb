@@ -9,14 +9,7 @@ module Boxing
     # The Dockerfle Generator
     #
     # @since 0.1.0
-    class Generate < Thor::Group
-      include Thor::Actions
-
-      # :nodoc:
-      def self.source_root
-        Pathname.new(File.dirname(__FILE__)).join('../../..')
-      end
-
+    class Generate < Base
       # Create Dockerfile
       #
       # @since 0.1.0
@@ -31,6 +24,7 @@ module Boxing
 
       def context
         @context = Context.new(
+          Boxing.config,
           Database.new,
           Boxing.dependencies
         )

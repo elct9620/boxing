@@ -78,13 +78,30 @@ bundle exec boxing update
 
 > If the generated `Dockerfile` is not satisfy, please try to update it.
 
+### Configuration
+
+If `config/boxing.rb` is found, it will be loaded and change the generated `Dockerfile` and `.dockerignore`
+
+```ruby
+Boxing.config do |c|
+ c.root = '/var/www'
+end
+```
+
 ## Roadmap
 
 * [x] `Dockerfile` generator
-* [x] `.gitignore` generator
+* [x] `.dockerignore` generator
   * [x] Common ignore files
   * [ ] Customizable ignore files
-* [ ] Customize config file `config/boxing.rb`
+* [x] Customize config file `config/boxing.rb`
+  * [x] Customize `APP_ROOT`
+  * [ ] Extra packages
+  * [ ] DSL to customize `Dockerfile`
+    * [ ] Build Stage
+    * [ ] Entrypoint
+    * [ ] Command
+    * [ ] Expose Port
 * [ ] Entrypoint Detection
   * [x] Openbox (Suggested)
   * [x] Ruby on Rails
