@@ -20,11 +20,14 @@ module Boxing
     #
     # @since 0.1.0
     def packages
-      @packages ||= Set.new(
-        @dependencies
-        .map(&:name)
-        .flat_map { |name| @database.package_for(name).to_a }
-      )
+      @packages ||=
+        Set
+        .new(default_packages)
+        .merge(
+          @dependencies
+          .map(&:name)
+          .flat_map { |name| @database.package_for(name).to_a }
+        )
     end
 
     # Check rubygems exists
@@ -36,6 +39,28 @@ module Boxing
     # @since 0.1.0
     def has?(*names)
       @dependencies.any? { |dep| names.include?(dep.name) }
+    end
+
+    # Does any gem from git
+    #
+    # @return [TrueClass|FalseClass]
+    #
+    # @since 0.4.0
+    def git?
+      @dependencies.any?(&:git)
+    end
+
+    # Default packages
+    #
+    # @return [Array<Boxing::Package>]
+    #
+    # @since 0.4.0
+    def default_packages
+      [
+        Package.new('build-base', mode: Package::BUILD)
+      ]
+        .push(git? ? Package.new('git', mode: Package::BUILD) : nil)
+        .compact
     end
 
     # Convert to binding
