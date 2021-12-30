@@ -31,6 +31,7 @@ module Boxing
 
       def context
         @context = Context.new(
+          Boxing.config,
           Database.new,
           Boxing.dependencies
         )
