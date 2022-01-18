@@ -9,10 +9,11 @@ module Boxing
     #   @return [String] the application root
     #
     # @since 0.5.0
-    attr_accessor :root
+    attr_accessor :root, :name, :registry
 
     # @since 0.5.0
     def initialize(&block)
+      @name = 'myapp'
       @root = '/srv/app'
 
       instance_exec(self, &block) if defined?(yield)

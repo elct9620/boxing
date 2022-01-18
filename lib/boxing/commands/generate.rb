@@ -19,16 +19,6 @@ module Boxing
         template('templates/Dockerfile.tt', 'Dockerfile', context: context.to_binding)
         template('templates/dockerignore.tt', '.dockerignore', context: context.to_binding)
       end
-
-      private
-
-      def context
-        @context = Context.new(
-          Boxing.config,
-          Database.new,
-          Boxing.dependencies
-        )
-      end
     end
 
     Boxing::Command.register(Generate, 'generate', 'generate', 'Generate Dockerfile')

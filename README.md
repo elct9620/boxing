@@ -94,6 +94,9 @@ end
 * [x] `.dockerignore` generator
   * [x] Common ignore files
   * [ ] Customizable ignore files
+* [ ] Docker Compose generator
+  * [ ] Production Version
+  * [ ] Development Version
 * [x] Customize config file `config/boxing.rb`
   * [x] Customize `APP_ROOT`
   * [ ] Extra packages
@@ -102,6 +105,9 @@ end
     * [ ] Entrypoint
     * [ ] Command
     * [ ] Expose Port
+* [ ] Health Check
+  * [ ] [Liveness](https://github.com/elct9620/openbox) gem detection
+  * [ ] Add `curl` for web application
 * [x] Entrypoint Detection
   * [x] [Openbox](https://github.com/elct9620/openbox) (Suggested)
   * [x] Ruby on Rails

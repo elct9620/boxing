@@ -1,0 +1,47 @@
+version: '3.4'
+
+volumes:
+  database:
+    driver: local
+
+services:
+<%- if has?('pg') -%>
+  postgres:
+    image: postgres:13.1
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=<%= config.name %>
+      - POSTGRES_USER=<%= config.name %>
+      - POSTGRES_PASSWORD=<%= config.name %>
+<%- end -%>
+<%- if has?('mysql2') -%>
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      - MYSQL_USER=<%= config.name %>
+      - MYSQL_PASSWORD=<%= config.name %>
+      - MYSQL_DATABASE=<%= config.name %>
+      - MYSQL_ROOT_PASSWORD=<%= config.name %>
+<%- end -%>
+  application:
+<%- if config.registry.nil? -%>
+    build:
+      context: .
+<%- else -%>
+    image: <%= config.registry %>
+<%- end -%>
+    environment:
+      - RAILS_MASTER_KEY
+      - AUTO_MIGRATION=yes
+      <%- if has?('pg') -%>
+      - DATABASE_URL=postgres://<%= config.name %>:<%= config.name %>@postgres/<%= config.name %>
+      <%- elsif has?('mysql2') %>
+      - DATABASE_URL=mysql2://<%= config.name %>:<%= config.name %>@mysql/<%= config.name %>
+      <%- end -%>
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
