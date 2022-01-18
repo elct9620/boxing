@@ -23,6 +23,17 @@ module Boxing
 
         load config
       end
+
+      private
+
+      # :nodoc:
+      def context
+        @context = Context.new(
+          Boxing.config,
+          Database.new,
+          Boxing.dependencies
+        )
+      end
     end
   end
 end

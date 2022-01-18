@@ -1,0 +1,26 @@
+version: '3.4'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:13.1
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=boxing
+      - POSTGRES_USER=boxing
+      - POSTGRES_PASSWORD=boxing
+  application:
+    build:
+      context: .
+    environment:
+      - RAILS_MASTER_KEY
+      - AUTO_MIGRATION=yes
+      - DATABASE_URL=postgres://boxing:boxing@postgres/boxing
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
