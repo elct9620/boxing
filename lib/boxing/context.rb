@@ -17,6 +17,8 @@ module Boxing
       @config = config
       @database = database
       @dependencies = dependencies
+
+      @config.port = 3000 if has?('rails')
     end
 
     # Return required packages
@@ -65,6 +67,7 @@ module Boxing
         Package.new('build-base', mode: Package::BUILD)
       ]
         .push(git? ? Package.new('git', mode: Package::BUILD) : nil)
+        .push(has?('liveness') ? Package.new('curl', mode: Package::RUNTIME) : nil)
         .compact
     end
 

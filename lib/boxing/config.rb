@@ -9,12 +9,14 @@ module Boxing
     #   @return [String] the application root
     #
     # @since 0.5.0
-    attr_accessor :root, :name, :registry, :ignores
+    attr_accessor :root, :name, :registry, :ignores, :port, :health_check, :health_check_path
 
     # @since 0.5.0
     def initialize(&block)
       @name = 'myapp'
       @root = '/srv/app'
+      @port = 9292
+      @health_path = '/status'
 
       instance_exec(self, &block) if defined?(yield)
     end
