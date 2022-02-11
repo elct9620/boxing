@@ -100,6 +100,17 @@ Boxing.config do |c|
 end
 ```
 
+### Health Check
+
+```ruby
+Boxing.config do |c|
+ c.health_check = true
+ c.health_check_path = '/api/status.json'
+end
+```
+
+> If `liveness` gem is installed, the health check will enabled by default with `/status` path.
+
 ## Roadmap
 
 * [x] `Dockerfile` generator
@@ -117,9 +128,9 @@ end
     * [ ] Entrypoint
     * [ ] Command
     * [ ] Expose Port
-* [ ] Health Check
-  * [ ] [Liveness](https://github.com/elct9620/openbox) gem detection
-  * [ ] Add `curl` for web application
+* [x] Health Check
+  * [x] [Liveness](https://github.com/elct9620/openbox) gem detection
+  * [x] Add `curl` for web application
 * [x] Entrypoint Detection
   * [x] [Openbox](https://github.com/elct9620/openbox) (Suggested)
   * [x] Ruby on Rails
