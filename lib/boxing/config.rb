@@ -9,7 +9,7 @@ module Boxing
     #   @return [String] the application root
     #
     # @since 0.5.0
-    attr_accessor :root, :name, :registry
+    attr_accessor :root, :name, :registry, :ignores
 
     # @since 0.5.0
     def initialize(&block)

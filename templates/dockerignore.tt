@@ -36,3 +36,8 @@ tmp/*
 
 # Boxing
 config/boxing.rb
+<% if config.ignores -%>
+
+# Customize Ignores
+<%= Array[config.ignores].join("\n") %>
+<%- end -%>
