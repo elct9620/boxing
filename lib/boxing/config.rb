@@ -9,7 +9,9 @@ module Boxing
     #   @return [String] the application root
     #
     # @since 0.5.0
-    attr_accessor :root, :name, :registry, :ignores, :port, :health_check, :health_check_path
+    attr_accessor :root, :name, :registry, :ignores, :port,
+                  :health_check, :health_check_path,
+                  :assets_precompile, :node_version
 
     # @since 0.5.0
     def initialize(&block)
@@ -17,6 +19,7 @@ module Boxing
       @root = '/srv/app'
       @port = 9292
       @health_path = '/status'
+      @assets_precompile = false
 
       instance_exec(self, &block) if defined?(yield)
     end

@@ -71,6 +71,17 @@ module Boxing
         .compact
     end
 
+    # Return node.js version
+    #
+    # @return [String]
+    #
+    # @since 0.6.0
+    def node_version
+      return config.node_version if config.node_version
+
+      `node -v`.gsub(/^v/, '')
+    end
+
     # Convert to binding
     #
     # @return [Binding]
