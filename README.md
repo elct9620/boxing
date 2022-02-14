@@ -86,7 +86,7 @@ If `config/boxing.rb` is found, it will be loaded and change the generated `Dock
 
 ```ruby
 Boxing.config do |c|
- c.root = '/var/www'
+  c.root = '/var/www'
 end
 ```
 
@@ -94,9 +94,18 @@ end
 
 ```ruby
 Boxing.config do |c|
- c.ignores = %w[
-   vendor/gems
- ]
+  c.ignores = %w[
+    vendor/gems
+  ]
+end
+```
+
+### Extra Packages
+
+```ruby
+Boxing.config do |c|
+  c.build_packages = %w[nodejs]
+  c.runtime_packages = %w[git]
 end
 ```
 
@@ -106,9 +115,9 @@ This feature is disabled by default and suggest to use CI to build it.
 
 ```ruby
 Boxing.config do |c|
- c.assets_precompile = true
- # If not given the `node -v` will be execute
- c.node_version = '14.18'
+  c.assets_precompile = true
+  # If not given the `node -v` will be execute
+  c.node_version = '14.18'
 end
 ```
 
@@ -116,8 +125,8 @@ end
 
 ```ruby
 Boxing.config do |c|
- c.health_check = true
- c.health_check_path = '/api/status.json'
+  c.health_check = true
+  c.health_check_path = '/api/status.json'
 end
 ```
 
