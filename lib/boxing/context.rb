@@ -29,7 +29,7 @@ module Boxing
     def packages
       @packages ||=
         Set
-        .new(default_packages)
+        .new(default_packages + extra_packages)
         .merge(
           @dependencies
           .map(&:name)
@@ -69,6 +69,20 @@ module Boxing
         .push(git? ? Package.new('git', mode: Package::BUILD) : nil)
         .push(has?('liveness') ? Package.new('curl', mode: Package::RUNTIME) : nil)
         .compact
+    end
+
+    # Extra Packages
+    #
+    # @return [Array<Boxing::Package>]
+    #
+    # @since 0.6.0
+    def extra_packages
+      Array[config.build_packages, config.runtime_packages].compact.flat_map do |name|
+        mode = 0
+        mode |= Package::BUILD if config.build_packages&.include?(name)
+        mode |= Package::RUNTIME if config.runtime_packages&.include?(name)
+        Package.new(name, mode: mode)
+      end
     end
 
     # Return node.js version
