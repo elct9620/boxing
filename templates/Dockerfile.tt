@@ -1,5 +1,6 @@
 ARG APP_ROOT=<%= config.root %>
 ARG RUBY_VERSION=<%= RUBY_VERSION %>
+<%- if config.assets_precompile -%>ARG NODE_VERSION=<%= node_version %><%- end -%>
 
 FROM ruby:${RUBY_VERSION}-alpine AS gem
 ARG APP_ROOT
@@ -23,6 +24,29 @@ RUN gem install bundler:<%= Bundler::VERSION %> \
     && find /usr/local/bundle -type f -name '*.o' -delete \
     && rm -rf /usr/local/bundle/cache/*.gem
 
+<%- if config.assets_precompile -%>
+FROM node:${NODE_VERSION}-alpine as node
+FROM ruby:${RUBY_VERSION}-alpine as assets
+ARG APP_ROOT
+
+<%- if packages.select(&:runtime?).any? -%>
+RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %> yarn
+
+<%- end -%>
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+
+COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
+COPY --from=gem /usr/local/bundle /usr/local/bundle
+COPY --from=gem /${APP_ROOT}/vendor/bundle /${APP_ROOT}/vendor/bundle
+
+RUN mkdir -p ${APP_ROOT}
+COPY . ${APP_ROOT}
+
+ENV RAILS_ENV production
+WORKDIR ${APP_ROOT}
+RUN bundle exec rake assets:precompile
+
+<%- end -%>
 FROM ruby:${RUBY_VERSION}-alpine
 ARG APP_ROOT
 
@@ -39,10 +63,12 @@ RUN mkdir -p ${APP_ROOT}
 <%- if has?('rails') -%>
 ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_SERVE_STATIC_FILES=yes
 <%- end -%>
 ENV APP_ROOT=$APP_ROOT
 
 COPY . ${APP_ROOT}
+COPY --from=assets /${APP_ROOT}/public /${APP_ROOT}/public
 
 ARG REVISION
 ENV REVISION $REVISION
@@ -59,7 +85,6 @@ RUN adduser -h ${APP_ROOT} -D -s /bin/nologin ruby ruby && \
 
 USER ruby
 WORKDIR ${APP_ROOT}
-
 
 EXPOSE <%= config.port %>
 <%- if has?('liveness') || config.health_check -%>

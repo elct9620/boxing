@@ -100,6 +100,18 @@ Boxing.config do |c|
 end
 ```
 
+### Assets Precompile
+
+This feature is disabled by default and suggest to use CI to build it.
+
+```ruby
+Boxing.config do |c|
+ c.assets_precompile = true
+ # If not given the `node -v` will be execute
+ c.node_version = '14.18'
+end
+```
+
 ### Health Check
 
 ```ruby
@@ -120,6 +132,8 @@ end
 * [ ] Docker Compose generator
   * [ ] Production Version
   * [x] Development Version
+* [x] Allow run Assets Precompile in Container
+  * [ ] Disable `RAILS_SERVE_STATIC_FILES` by default
 * [x] Customize config file `config/boxing.rb`
   * [x] Customize `APP_ROOT`
   * [ ] Extra packages
@@ -127,7 +141,7 @@ end
     * [ ] Build Stage
     * [ ] Entrypoint
     * [ ] Command
-    * [ ] Expose Port
+    * [x] Expose Port
 * [x] Health Check
   * [x] [Liveness](https://github.com/elct9620/openbox) gem detection
   * [x] Add `curl` for web application
