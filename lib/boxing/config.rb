@@ -11,7 +11,8 @@ module Boxing
     # @since 0.5.0
     attr_accessor :root, :name, :registry, :ignores, :port,
                   :health_check, :health_check_path,
-                  :assets_precompile, :node_version
+                  :assets_precompile, :node_version,
+                  :build_packages, :runtime_packages
 
     # @since 0.5.0
     def initialize(&block)
