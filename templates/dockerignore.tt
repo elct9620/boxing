@@ -30,6 +30,9 @@ rspec.xml
 log/*
 tmp/*
 
+# Frontend
+node_modules/
+
 # Licensed
 .licensed.yml
 .licenses
