@@ -29,6 +29,7 @@ rspec.xml
 # Rails
 log/*
 tmp/*
+/config/master.key
 
 # Frontend
 node_modules/
