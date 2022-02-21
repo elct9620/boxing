@@ -77,12 +77,11 @@ module Boxing
     #
     # @since 0.6.0
     def extra_packages
-      Array[config.build_packages, config.runtime_packages].compact.flat_map do |name|
-        mode = 0
-        mode |= Package::BUILD if config.build_packages&.include?(name)
-        mode |= Package::RUNTIME if config.runtime_packages&.include?(name)
-        Package.new(name, mode: mode)
-      end
+      Array[config.build_packages, config.runtime_packages].flatten.map do |name|
+        next if name.nil?
+
+        Package.new(name, mode: mode_of(name))
+      end.compact
     end
 
     # Return node.js version
@@ -103,6 +102,18 @@ module Boxing
     # @since 0.1.0
     def to_binding
       binding
+    end
+
+    # Check Package Mode
+    #
+    # @return [Number]
+    #
+    # @since 0.6.3
+    def mode_of(name)
+      mode = 0
+      mode |= Package::BUILD if config.build_packages&.include?(name)
+      mode |= Package::RUNTIME if config.runtime_packages&.include?(name)
+      mode
     end
   end
 end
