@@ -19,7 +19,7 @@ module Boxing
       @name = 'myapp'
       @root = '/srv/app'
       @port = 9292
-      @health_path = '/status'
+      @health_check_path = '/status'
       @assets_precompile = false
 
       instance_exec(self, &block) if defined?(yield)
