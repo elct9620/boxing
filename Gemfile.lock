@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    boxing (0.6.4)
+    boxing (0.7.0)
       bundler (~> 2.0)
       thor (~> 1.0)
 
