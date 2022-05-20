@@ -26,6 +26,9 @@ RUN gem install bundler:<%= Bundler::VERSION %> \
 FROM node:${NODE_VERSION}-alpine as node
 FROM ruby:${RUBY_VERSION}-alpine as assets
 ARG APP_ROOT
+ARG RAILS_MASTER_KEY
+
+ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
 
 <%- if packages.select(&:runtime?).any? -%>
 RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %> yarn

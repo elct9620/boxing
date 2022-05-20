@@ -121,6 +121,8 @@ Boxing.config do |c|
 end
 ```
 
+> When building the image, you have to add `--build-arg RAILS_MASTER_KEY=...` to set your production key to compile it correctly.
+
 ### Health Check
 
 ```ruby
