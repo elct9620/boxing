@@ -4,13 +4,26 @@ on:
   push:
     branches:
       - main
-
   pull_request:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+env:
+  RUBY_VERSION: '2.7.6'
 
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version:  ${{ env.RUBY_VERSION }}
+        bundler-cache: true
+    - name: Run Rubocop
+      run: bundle exec rubocop
+
+  rspec:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         ruby:
@@ -19,7 +32,6 @@ jobs:
           - 2.7
           - 3.0
           - 3.1
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -27,5 +39,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: Run the default task
+    - name: Run RSpec
       run: bundle exec rake
