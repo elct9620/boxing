@@ -50,7 +50,7 @@ module Boxing
     USER_PATH = Pathname.new(Gem.user_home).join('.local/share/ruby-boxing-db')
 
     # @since 0.3.0
-    DEFAULT_PATH = ENV['BOXING_DB'] || USER_PATH
+    DEFAULT_PATH = ENV.fetch('BOXING_DB', USER_PATH)
 
     # @since 0.3.0
     attr_reader :path
