@@ -71,11 +71,18 @@ ENV APP_ROOT=$APP_ROOT
 COPY . ${APP_ROOT}
 <%- if config.assets_precompile -%>COPY --from=assets /${APP_ROOT}/public /${APP_ROOT}/public
 <%- end -%>
+<%- if config.revision -%>
 
 ARG REVISION
 ENV REVISION $REVISION
 ENV COMMIT_SHORT_SHA $REVISION
 RUN echo "${REVISION}" > ${APP_ROOT}/REVISION
+<%- end -%>
+<%- if config.sentry_release -%>
+
+ARG SENTRY_RELEASE
+ENV SENTRY_RELEASE $SENTRY_RELEASE
+<%- end -%>
 
 # Apply Execute Permission
 RUN adduser -h ${APP_ROOT} -D -s /bin/nologin ruby ruby && \

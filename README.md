@@ -109,6 +109,24 @@ Boxing.config do |c|
 end
 ```
 
+### Revision Information
+
+```ruby
+Boxing.config do |c|
+  c.revision = true
+end
+```
+> When building the image, you have to add `--build-arg REVISION=...` to set your revision name to compile it correctly.
+
+### Sentry Support
+
+```ruby
+Boxing.config do |c|
+  c.sentry_release = true
+end
+```
+> When building the image, you have to add `--build-arg SENTRY_RELEASE=...` to set your release name to compile it correctly.
+
 ### Assets Precompile
 
 This feature is disabled by default and suggest to use CI to build it.
@@ -120,7 +138,6 @@ Boxing.config do |c|
   c.node_version = '14.18'
 end
 ```
-
 > When building the image, you have to add `--build-arg RAILS_MASTER_KEY=...` to set your production key to compile it correctly.
 
 ### Health Check
