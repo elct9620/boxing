@@ -6,6 +6,6 @@ RSpec.describe Boxing::Config do
   describe '#root' do
     subject { config.root }
 
-    it { is_expected.to eq('/srv/app') }
+    it { is_expected.to eq('/src/app') }
   end
 end
