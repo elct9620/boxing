@@ -36,6 +36,10 @@ The final Rails image will be around 100MB and can be flexible to delivery to an
 
 > We suggest using `puma` as the webserver to avoid the extra dependency to keep the image small.
 
+### Bootsnap Precompile (Experimental)
+
+If your gem dependency included `bootsnap` the generated Dockerfile will add precompile options to speed up the application bootstrap.
+
 ### Revision
 
 To identity your image version, the default build argument `REVISION` will be configured by default.
@@ -87,6 +91,22 @@ If `config/boxing.rb` is found, it will be loaded and change the generated `Dock
 ```ruby
 Boxing.config do |c|
   c.root = '/var/www'
+end
+```
+
+### Customize Entrypoint
+
+```ruby
+Boxing.config do |c|
+  c.entrypoint = ['bin/rails']
+end
+```
+
+### Customize Command
+
+```ruby
+Boxing.config do |c|
+  c.command = ['server', '-b', '127.0.0.1']
 end
 ```
 
