@@ -115,5 +115,31 @@ module Boxing
       mode |= Package::RUNTIME if config.runtime_packages&.include?(name)
       mode
     end
+
+    # Return entrypoint options
+    #
+    # @return [Array<String>]
+    #
+    # @since 0.9.0
+    def entrypoint
+      return config.entrypoint.map(&:to_s) if config.entrypoint
+      return ['bin/openbox'] if has?('openbox')
+      return ['bin/rails'] if has?('rails')
+
+      %w[bundle exec]
+    end
+
+    # Return command options
+    #
+    # @return [Array<String>]
+    #
+    # @since 0.9.0
+    def command
+      return config.command.map(&:to_s) if config.command
+      return ['server'] if has?('openbox')
+      return ['server', '-b', '0.0.0.0'] if has?('rails')
+
+      ['rackup', '-o', '0.0.0.0']
+    end
   end
 end

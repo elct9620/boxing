@@ -107,13 +107,5 @@ EXPOSE <%= config.port %>
 <%- if has?('liveness') || config.health_check -%>
 HEALTHCHECK CMD curl -f http://localhost:<%= config.port %><%= config.health_check_path %> || exit 1
 <%- end -%>
-<%- if has?('openbox') -%>
-ENTRYPOINT ["bin/openbox"]
-CMD ["server"]
-<%- elsif has?('rails') -%>
-ENTRYPOINT ["bin/rails"]
-CMD ["server", "-b", "0.0.0.0"]
-<%- else -%>
-ENTRYPOINT ["bundle", "exec"]
-CMD ["rackup", "-o", "0.0.0.0"]
-<%- end -%>
+ENTRYPOINT <%= entrypoint %>
+CMD <%= command %>

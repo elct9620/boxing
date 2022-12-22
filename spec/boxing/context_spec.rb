@@ -70,4 +70,64 @@ RSpec.describe Boxing::Context do
       it { is_expected.to be_truthy }
     end
   end
+
+  describe '#entrypoint' do
+    subject { context.entrypoint }
+
+    it { is_expected.to include('bundle', 'exec') }
+
+    context 'when customized entrypoint' do
+      before do
+        config.entrypoint = ['bin/rackup']
+      end
+
+      it { is_expected.to include('bin/rackup') }
+    end
+
+    context 'when openbox exists' do
+      let(:context) do
+        described_class.new(config, database, [instance_double('Bundler::Dependency', name: 'openbox', git: nil)])
+      end
+
+      it { is_expected.to include('bin/openbox') }
+    end
+
+    context 'when rails exists' do
+      let(:context) do
+        described_class.new(config, database, [instance_double('Bundler::Dependency', name: 'rails', git: nil)])
+      end
+
+      it { is_expected.to include('bin/rails') }
+    end
+  end
+
+  describe '#command' do
+    subject { context.command }
+
+    it { is_expected.to include('rackup', '-o', '0.0.0.0') }
+
+    context 'when customized command' do
+      before do
+        config.command = ['console']
+      end
+
+      it { is_expected.to include('console') }
+    end
+
+    context 'when openbox exists' do
+      let(:context) do
+        described_class.new(config, database, [instance_double('Bundler::Dependency', name: 'openbox', git: nil)])
+      end
+
+      it { is_expected.to include('server') }
+    end
+
+    context 'when rails exists' do
+      let(:context) do
+        described_class.new(config, database, [instance_double('Bundler::Dependency', name: 'rails', git: nil)])
+      end
+
+      it { is_expected.to include('server', '-b', '0.0.0.0') }
+    end
+  end
 end

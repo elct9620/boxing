@@ -13,7 +13,8 @@ module Boxing
                   :health_check, :health_check_path,
                   :assets_precompile, :node_version,
                   :build_packages, :runtime_packages,
-                  :revision, :sentry_release
+                  :revision, :sentry_release,
+                  :entrypoint, :command
 
     # @since 0.5.0
     def initialize(&block)
