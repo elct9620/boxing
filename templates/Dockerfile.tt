@@ -2,7 +2,7 @@ ARG APP_ROOT=<%= config.root %>
 ARG RUBY_VERSION=<%= RUBY_VERSION %>
 <%- if config.assets_precompile -%>ARG NODE_VERSION=<%= node_version %><%- end -%>
 
-FROM ruby:${RUBY_VERSION}-alpine AS gem
+FROM ruby:${RUBY_VERSION}-alpine AS base
 ARG APP_ROOT
 
 RUN apk add --no-cache <%= packages.select(&:build?).join(' ') %>
@@ -22,6 +22,10 @@ RUN gem install bundler:<%= Bundler::VERSION %> \
     && find ${APP_ROOT}/vendor/bundle -type f -name '*.o' -delete \
     && find ${APP_ROOT}/vendor/bundle -type f -name '*.gem' -delete
 
+<%- if has?('bootsnap') -%>
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
+
+<%- end -%>
 <%- if config.assets_precompile -%>
 FROM node:${NODE_VERSION}-alpine as node
 FROM ruby:${RUBY_VERSION}-alpine as assets
@@ -36,9 +40,9 @@ RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %> yarn
 <%- end -%>
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 
-COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
-COPY --from=gem /usr/local/bundle /usr/local/bundle
-COPY --from=gem ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
+COPY --from=base /usr/local/bundle/config /usr/local/bundle/config
+COPY --from=base /usr/local/bundle /usr/local/bundle
+COPY --from=base ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
 
 RUN mkdir -p ${APP_ROOT}
 COPY . ${APP_ROOT}
@@ -55,10 +59,13 @@ ARG APP_ROOT
 RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %>
 
 <%- end -%>
-COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
-COPY --from=gem /usr/local/bundle /usr/local/bundle
-COPY --from=gem ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
+COPY --from=base /usr/local/bundle/config /usr/local/bundle/config
+COPY --from=base /usr/local/bundle /usr/local/bundle
+COPY --from=base ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
+<%- if has?('bootsnap') -%>
+COPY --from=base ${APP_ROOT}/tmp/cache ${APP_ROOT}/tmp/cache
 
+<%- end -%>
 RUN mkdir -p ${APP_ROOT}
 
 <%- if has?('rails') -%>
