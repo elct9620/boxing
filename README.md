@@ -1,4 +1,6 @@
-# Boxing
+Boxing
+===
+[![Ruby](https://github.com/elct9620/boxing/actions/workflows/main.yml/badge.svg)](https://github.com/elct9620/boxing/actions/workflows/main.yml)
 
 The zero-configuration Dockerfile generator for Ruby.
 
