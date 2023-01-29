@@ -123,6 +123,7 @@ module Boxing
     # @since 0.9.0
     def entrypoint
       return config.entrypoint.map(&:to_s) if config.entrypoint
+      return ['bin/aws_lambda_ric'] if has?('aws_lambda_ric')
       return ['bin/openbox'] if has?('openbox')
       return ['bin/rails'] if has?('rails')
 
@@ -136,6 +137,7 @@ module Boxing
     # @since 0.9.0
     def command
       return config.command.map(&:to_s) if config.command
+      return ['config/environment.Lamby.cmd'] if has?('lamby')
       return ['server'] if has?('openbox')
       return ['server', '-b', '0.0.0.0'] if has?('rails')
 
