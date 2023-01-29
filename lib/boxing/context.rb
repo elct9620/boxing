@@ -138,7 +138,7 @@ module Boxing
     def command
       return config.command.map(&:to_s) if config.command
       return ['config/environment.Lamby.cmd'] if has?('lamby')
-      return ['config/environment.Aws::Rails::SqsActiveJob.lambda_job_handler'] if has('aws-sdk-rails')
+      return ['config/environment.Aws::Rails::SqsActiveJob.lambda_job_handler'] if has?('aws-sdk-rails')
       return ['server'] if has?('openbox')
       return ['server', '-b', '0.0.0.0'] if has?('rails')
 
