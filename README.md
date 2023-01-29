@@ -42,6 +42,12 @@ The final Rails image will be around 100MB and can be flexible to delivery to an
 
 If your gem dependency included `bootsnap` the generated Dockerfile will add precompile options to speed up the application bootstrap.
 
+### AWS Lambda Runtime Interface Client
+
+When the `aws_lambda_ric` gem is detected, the `boxing` will choose to use `bin/aws_lambda_ric` as entrypoint.
+
+To make it works correctly, run `bundle binstub aws_lambda_ric` to make it can run it correctly.
+
 ### Revision
 
 To identity your image version, the default build argument `REVISION` will be configured by default.
