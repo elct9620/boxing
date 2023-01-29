@@ -184,11 +184,11 @@ end
   * [ ] Disable `RAILS_SERVE_STATIC_FILES` by default
 * [x] Customize config file `config/boxing.rb`
   * [x] Customize `APP_ROOT`
-  * [ ] Extra packages
+  * [x] Extra packages
   * [ ] DSL to customize `Dockerfile`
     * [ ] Build Stage
-    * [ ] Entrypoint
-    * [ ] Command
+    * [x] Entrypoint
+    * [x] Command
     * [x] Expose Port
 * [x] Health Check
   * [x] [Liveness](https://github.com/elct9620/openbox) gem detection
@@ -197,6 +197,9 @@ end
   * [x] [Openbox](https://github.com/elct9620/openbox) (Suggested)
   * [x] Ruby on Rails
   * [x] Rack (Default)
+  * [x] AWS Lambda Runtime Interface Client
+    * [x] Lamby supported (Default)
+    * [x] SQS ActiveJob Lambda Handler
 * [ ] Package Database
   * [x] Built-in (Move to standalone repoistory in future)
   * [x] Standalone Repoistory
