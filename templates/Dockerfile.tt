@@ -15,7 +15,7 @@ RUN gem install bundler:<%= Bundler::VERSION %> \
     && bundle config --local deployment 'true' \
     && bundle config --local frozen 'true' \
     && bundle config --local no-cache 'true' \
-    && bundle config --local without 'development test' \
+    && bundle config --local without '<%= exclude_groups.join(' ') %>' \
     && bundle install -j "$(getconf _NPROCESSORS_ONLN)" \
     && find ${APP_ROOT}/vendor/bundle -type f -name '*.c' -delete \
     && find ${APP_ROOT}/vendor/bundle -type f -name '*.h' -delete \

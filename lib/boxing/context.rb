@@ -37,6 +37,15 @@ module Boxing
         )
     end
 
+    # Exclude Gems in container images
+    #
+    # @return [Array<String>]
+    #
+    # @since 0.11.0
+    def exclude_groups
+      @exclude_groups ||= config.exclude_groups || []
+    end
+
     # Check rubygems exists
     #
     # @param names [Array<String>]
@@ -77,7 +86,7 @@ module Boxing
     #
     # @since 0.6.0
     def extra_packages
-      Array[config.build_packages, config.runtime_packages].flatten.map do |name|
+      [config.build_packages, config.runtime_packages].flatten.map do |name|
         next if name.nil?
 
         Package.new(name, mode: mode_of(name))
