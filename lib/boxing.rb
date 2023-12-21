@@ -13,10 +13,15 @@ module Boxing
   # @since 0.11.0
   # @api private
   def loader
-    @loader ||= Zeitwerk::Loader.for_gem
+    @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|
+      loader.ignore("#{__dir__}/boxing/{railtie,hanami}.rb")
+    end
   end
 
   loader.setup
+
+  require_relative 'boxing/railtie' if defined?(Rails::Railtie)
+  require_relative 'boxing/hanami' if defined?(Hanami::CLI)
 
   # @return [Bundler::Dependency]
   #
