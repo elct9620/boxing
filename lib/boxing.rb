@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'boxing/version'
-require_relative 'boxing/config'
-require_relative 'boxing/package'
-require_relative 'boxing/database'
-require_relative 'boxing/context'
-require_relative 'boxing/command'
+require 'zeitwerk'
 
 # The tool to generate Dockerfile without config
 #
@@ -14,6 +9,14 @@ module Boxing
   LOCK = Mutex.new
 
   module_function
+
+  # @since 0.11.0
+  # @api private
+  def loader
+    @loader ||= Zeitwerk::Loader.for_gem
+  end
+
+  loader.setup
 
   # @return [Bundler::Dependency]
   #
