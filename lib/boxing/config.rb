@@ -31,10 +31,9 @@ module Boxing
 
     # @since 0.11.0
     def default_exclude_groups
-      return %w[development test] if defined?(Rails)
       return %w[development test cli] if defined?(Hanami)
 
-      []
+      %w[development test]
     end
   end
 end
