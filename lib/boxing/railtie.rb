@@ -8,6 +8,7 @@ module Boxing
         load 'boxing/tasks/config.rake'
         load 'boxing/tasks/generate.rake'
         load 'boxing/tasks/update.rake'
+        load 'boxing/tasks/compose.rake'
       end
     end
   end
