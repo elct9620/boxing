@@ -68,6 +68,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-darwin-20
   x86_64-darwin-21
   x86_64-darwin-22
@@ -85,4 +86,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.3.14
+   2.4.10
