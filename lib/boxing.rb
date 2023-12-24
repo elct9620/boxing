@@ -47,4 +47,22 @@ module Boxing
 
     @config
   end
+
+  # @return [Boxing::Database]
+  #
+  # @since 0.11.0
+  def database
+    @database ||= Database.new
+  end
+
+  # @return [Boxing::Context]
+  #
+  # @since 0.11.0
+  def context
+    @context ||= Context.new(
+      config,
+      database,
+      dependencies
+    )
+  end
 end

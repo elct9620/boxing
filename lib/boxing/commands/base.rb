@@ -28,11 +28,7 @@ module Boxing
 
       # :nodoc:
       def context
-        @context = Context.new(
-          Boxing.config,
-          Database.new,
-          Boxing.dependencies
-        )
+        Boxing.context
       end
     end
   end
