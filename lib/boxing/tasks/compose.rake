@@ -6,5 +6,5 @@ task compose: :config do
   generator = Boxing::Generator.new
 
   puts 'Generating docker-compose.yml'
-  generator.execute('docker-compose.yml', compose, context: Boxing.context.to_binding)
+  generator.execute('docker-compose.yml', compose, context: Boxing.context)
 end

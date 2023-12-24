@@ -45,6 +45,7 @@ module Boxing
     # @since 0.11.0
     # @api private
     def render(context = nil)
+      context = context.to_binding if context.respond_to?(:to_binding)
       engine.result(context)
     end
   end

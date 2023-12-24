@@ -7,8 +7,8 @@ task generate: :config do
   generator = Boxing::Generator.new
 
   puts 'Generating Dockerfile'
-  generator.execute('Dockerfile', dockerfile, context: Boxing.context.to_binding)
+  generator.execute('Dockerfile', dockerfile, context: Boxing.context)
 
   puts 'Generating .dockerignore'
-  generator.execute('.dockerignore', ignore, context: Boxing.context.to_binding)
+  generator.execute('.dockerignore', ignore, context: Boxing.context)
 end
