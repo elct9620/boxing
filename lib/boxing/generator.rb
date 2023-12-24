@@ -10,9 +10,10 @@ module Boxing
     # Generate file
     #
     # @since 0.11.0
-    def execute(destination, template, context: nil)
+    def execute(destination, content = nil)
+      content = yield if block_given?
       destination = current_path.join(destination)
-      write(destination, template.render(context))
+      write(destination, content)
     end
 
     # Write file to relative path

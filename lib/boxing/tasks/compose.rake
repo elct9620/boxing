@@ -2,9 +2,8 @@
 
 desc 'Generate docker-compose.yml'
 task compose: :config do
-  compose = Boxing::Template.new('docker-compose.yml.tt')
-  generator = Boxing::Generator.new
+  include Boxing::Utils
 
   puts 'Generating docker-compose.yml'
-  generator.execute('docker-compose.yml', compose, context: Boxing.context)
+  template('docker-compose.yml', 'docker-compose.yml.tt', context: Boxing.context)
 end

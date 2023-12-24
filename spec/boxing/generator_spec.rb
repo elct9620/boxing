@@ -6,13 +6,11 @@ RSpec.describe Boxing::Generator do
   subject(:generator) { described_class.new }
 
   let(:tmpdir) { Pathname.new(Dir.mktmpdir) }
-  let(:template) { instance_double(Boxing::Template) }
 
   before do
     allow(generator).to receive(:current_path).and_return(tmpdir)
-    allow(template).to receive(:render).and_return('test')
 
-    generator.execute('Dockerfile', template)
+    generator.execute('Dockerfile', 'test')
   end
   after { FileUtils.remove_entry(tmpdir) }
 

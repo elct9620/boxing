@@ -2,13 +2,11 @@
 
 desc 'Generate Dockerfile'
 task generate: :config do
-  dockerfile = Boxing::Template.new('Dockerfile.tt')
-  ignore = Boxing::Template.new('dockerignore.tt')
-  generator = Boxing::Generator.new
+  include Boxing::Utils
 
   puts 'Generating Dockerfile'
-  generator.execute('Dockerfile', dockerfile, context: Boxing.context)
+  template('Dockerfile', 'Dockerfile.tt', context: Boxing.context)
 
   puts 'Generating .dockerignore'
-  generator.execute('.dockerignore', ignore, context: Boxing.context)
+  template('.dockerignore', 'dockerignore.tt', context: Boxing.context)
 end

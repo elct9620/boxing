@@ -13,11 +13,23 @@ module Boxing
     #
     # @since 0.11.0
     def current_path
-      return Bundler.root if defined?(Bundler)
-      return Rails.root if defined?(Rails)
       return Hanami.app.root if defined?(Hanami)
+      return Rails.root if defined?(Rails)
 
       Pathname.new(Dir.pwd)
+    end
+
+    # Generate file from template
+    #
+    # @param [String] destination
+    # @param [String] template
+    # @param [Binding] context
+    #
+    # @since 0.11.0
+    def template(destination, template, context: nil)
+      Generator.new.execute(destination) do
+        Template.new(template).render(context)
+      end
     end
   end
 end
