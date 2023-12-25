@@ -27,9 +27,7 @@ module Boxing
     #
     # @since 0.11.0
     def template(destination, template, context: nil)
-      Generator.new.execute(destination) do
-        Template.new(template).render(context)
-      end
+      Generator.new(destination, -> { Template.new(template).render(context) }).execute
     end
   end
 end

@@ -3,16 +3,14 @@
 require 'tmpdir'
 
 RSpec.describe Boxing::Generator do
-  subject(:generator) { described_class.new }
+  subject(:generator) { described_class.new('Dockerfile', 'test') }
 
   let(:tmpdir) { Pathname.new(Dir.mktmpdir) }
 
-  before do
-    allow(generator).to receive(:current_path).and_return(tmpdir)
-
-    generator.execute('Dockerfile', 'test')
-  end
+  around { |example| Dir.chdir(tmpdir) { example.run } }
   after { FileUtils.remove_entry(tmpdir) }
+
+  before { generator.execute }
 
   it 'creates a file' do
     expect(File.exist?(File.join(tmpdir, 'Dockerfile'))).to be true
