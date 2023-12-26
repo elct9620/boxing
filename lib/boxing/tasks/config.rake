@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 task :config do
+  require 'hanami/setup' if defined?(Hanami::CLI)
+
   include Boxing::Utils
 
   config_file = current_path.join('config', 'boxing.rb')
