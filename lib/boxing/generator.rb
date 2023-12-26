@@ -18,6 +18,8 @@ module Boxing
     #
     # @since 0.11.0
     def execute
+      return if identical?
+
       FileUtils.mkdir_p(File.dirname(@destination))
       File.write(@destination, render)
     end
@@ -33,6 +35,24 @@ module Boxing
                   else
                     @content
                   end
+    end
+
+    # Check if file exists
+    #
+    # @return [TrueClass|FalseClass]
+    #
+    # @since 0.11.0
+    def exist?
+      @destination.exist?
+    end
+
+    # Check if file identical
+    #
+    # @return [TrueClass|FalseClass]
+    #
+    # @since 0.11.0
+    def identical?
+      exist? && File.binread(@destination) == String.new(render).force_encoding('ASCII-8BIT')
     end
   end
 end

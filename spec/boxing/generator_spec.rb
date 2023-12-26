@@ -19,4 +19,11 @@ RSpec.describe Boxing::Generator do
   it 'writes the template to the file' do
     expect(File.read(File.join(tmpdir, 'Dockerfile'))).to eq 'test'
   end
+
+  context 'when file identically exists' do
+    before { generator.execute }
+
+    it { is_expected.to be_exist }
+    it { is_expected.to be_identical }
+  end
 end
