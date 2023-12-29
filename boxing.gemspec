@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency 'bundler', '~> 2.0'
-  spec.add_dependency 'thor', '~> 1.0'
   spec.add_dependency 'zeitwerk', '~> 2.6'
 
   # For more information and examples about making a new gem, checkout our

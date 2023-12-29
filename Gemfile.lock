@@ -3,7 +3,6 @@ PATH
   specs:
     boxing (0.10.0)
       bundler (~> 2.0)
-      thor (~> 1.0)
       zeitwerk (~> 2.6)
 
 GEM
