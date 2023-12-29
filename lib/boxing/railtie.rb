@@ -5,10 +5,8 @@ module Boxing
   class Railtie < ::Rails::Railtie
     rake_tasks do
       namespace :boxing do
-        load 'boxing/tasks/config.rake'
-        load 'boxing/tasks/generate.rake'
-        load 'boxing/tasks/update.rake'
-        load 'boxing/tasks/compose.rake'
+        path = File.join(Boxing::Command::TASK_ROOT, '**/*.rake')
+        FileList.glob(path.tr('\\', '/')).each { |file| load file }
       end
     end
   end
