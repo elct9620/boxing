@@ -2,5 +2,7 @@
 # frozen_string_literal: true
 
 require 'boxing'
+require 'rake'
 
-Boxing::Command.start(ARGV)
+Rake.application = Boxing::Command.new
+Rake.application.run
