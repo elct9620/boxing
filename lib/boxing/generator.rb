@@ -133,7 +133,7 @@ module Boxing
         tempfile.write(render)
         tempfile.rewind
 
-        system("diff -u #{tempfile.path} #{path}")
+        system("diff -u --color #{path} #{tempfile.path}")
       end
     end
 
