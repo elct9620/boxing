@@ -32,7 +32,7 @@ FROM ruby:${RUBY_VERSION}-alpine as assets
 ARG APP_ROOT
 ARG RAILS_MASTER_KEY
 
-ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
 <%- if packages.select(&:runtime?).any? -%>
 RUN apk add --no-cache <%= packages.select(&:runtime?).join(' ') %> yarn
@@ -47,7 +47,7 @@ COPY --from=base ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
 RUN mkdir -p ${APP_ROOT}
 COPY . ${APP_ROOT}
 
-ENV RAILS_ENV production
+ENV RAILS_ENV=production
 WORKDIR ${APP_ROOT}
 RUN bundle exec rake assets:precompile
 
@@ -81,14 +81,14 @@ COPY . ${APP_ROOT}
 <%- if config.revision -%>
 
 ARG REVISION
-ENV REVISION $REVISION
-ENV COMMIT_SHORT_SHA $REVISION
+ENV REVISION=$REVISION
+ENV COMMIT_SHORT_SHA=$REVISION
 RUN echo "${REVISION}" > ${APP_ROOT}/REVISION
 <%- end -%>
 <%- if config.sentry_release -%>
 
 ARG SENTRY_RELEASE
-ENV SENTRY_RELEASE $SENTRY_RELEASE
+ENV SENTRY_RELEASE=$SENTRY_RELEASE
 <%- end -%>
 
 # Apply Execute Permission
