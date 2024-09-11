@@ -14,7 +14,7 @@ module Boxing
       #
       # @since 0.1.0
       def load(path)
-        data = YAML.safe_load(File.read(path))
+        data = YAML.safe_load_file(path)
         mode = 0b00
         mode |= Package::RUNTIME if data['runtime']
         mode |= Package::BUILD if data['build']

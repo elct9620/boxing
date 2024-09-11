@@ -10,7 +10,8 @@
 # See https://docs.rubocop.org/rubocop/configuration
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.0
+  SuggestExtensions: false
   NewCops: enable
 
 Metrics/BlockLength:

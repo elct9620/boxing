@@ -11,12 +11,12 @@ module Boxing
     ASCII_BOLD = "\e[1m"
     ASCII_RED = "\e[31m"
 
-    CREATED_MESSAGE = "#{ASCII_BOLD}create#{ASCII_CLEAR}\t%s"
-    IDENTICAL_MESSAGE = "#{ASCII_BOLD}identical#{ASCII_CLEAR}\t%s"
-    CONFLICT_MESSAGE = "#{ASCII_BOLD}#{ASCII_RED}conflict#{ASCII_CLEAR}\t%s"
+    CREATED_MESSAGE = "#{ASCII_BOLD}create#{ASCII_CLEAR}\t%s".freeze
+    IDENTICAL_MESSAGE = "#{ASCII_BOLD}identical#{ASCII_CLEAR}\t%s".freeze
+    CONFLICT_MESSAGE = "#{ASCII_BOLD}#{ASCII_RED}conflict#{ASCII_CLEAR}\t%s".freeze
     OVERWRITE_MESSAGE = 'Overwrite %s? (enter "h" for help) [Ynqdhm] '
-    FORCE_MESSAGE = "#{ASCII_BOLD}force#{ASCII_CLEAR}\t%s"
-    SKIP_MESSAGE = "#{ASCII_BOLD}skip#{ASCII_CLEAR}\t%s"
+    FORCE_MESSAGE = "#{ASCII_BOLD}force#{ASCII_CLEAR}\t%s".freeze
+    SKIP_MESSAGE = "#{ASCII_BOLD}skip#{ASCII_CLEAR}\t%s".freeze
     MERGE_TOOL_NOT_FOUND = 'Please configure merge.tool in your Git config.'
 
     attr_reader :destination, :path
