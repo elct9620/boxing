@@ -11,7 +11,7 @@ gem 'rspec', '~> 3.12'
 
 gem 'simplecov'
 
-gem 'rubocop', '~> 1.22'
+gem 'rubocop', '~> 1.68'
 gem 'rubocop-rake'
 gem 'rubocop-rspec'
 
